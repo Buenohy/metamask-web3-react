@@ -7,7 +7,7 @@ export async function getMetaMaskProvider() {
 
   const accounts = await web3.eth.requestAccounts();
   console.log(accounts);
-  if (!accounts || !accounts.length) throw new Error(`Permosson required!`);
+  if (!accounts || !accounts.length) throw new Error(`Permission required!`);
 
   return web3;
 }
@@ -16,4 +16,18 @@ export async function getBalance(address) {
   const web3 = await getMetaMaskProvider();
   const balance = await web3.eth.getBalance(address);
   return web3.utils.fromWei(balance);
+}
+
+export async function transfer(from, to, quantity) {
+  const web3 = await getMetaMaskProvider();
+  const value = web3.utils.toWei(quantity, 'ether');
+
+  const nonce = await web3.eth.getTransactionCount(from, 'latest');
+  const transaction = {
+    from,
+    to,
+    value,
+    gas: 21000,
+    nonce,
+  };
 }
