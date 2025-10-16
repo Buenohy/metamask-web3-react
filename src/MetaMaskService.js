@@ -11,3 +11,9 @@ export async function getMetaMaskProvider() {
 
   return web3;
 }
+
+export async function getBalance(address) {
+  const web3 = await getMetaMaskProvider();
+  const balance = await web3.eth.getBalance(address);
+  return balance;
+}
