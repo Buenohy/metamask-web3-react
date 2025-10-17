@@ -30,4 +30,8 @@ export async function transfer(from, to, quantity) {
     gas: 21000,
     nonce,
   };
+
+  const tx = await web3.eth.sendTransaction(transaction);
+
+  return tx.transactionHash;
 }
